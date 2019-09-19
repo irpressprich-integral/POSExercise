@@ -1,5 +1,8 @@
 package main;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Sale {
 
     private final Display display;
@@ -12,6 +15,11 @@ public class Sale {
         this.catalog = catalog;
     }
 
+    public static String formatCurrency(long priceInCents) {
+        NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
+        return n.format(priceInCents / 100.0);
+    }
+
     public void onBarcode(String barcode) {
         if (barcode == null || barcode.equals("")) {
             display.displayProductNotScanned();
@@ -21,7 +29,7 @@ public class Sale {
         if (catalog.hasProduct(barcode)) {
             price = catalog.getPrice(barcode);
             totalPrice += price;
-            display.displayPrice(price);
+            display.displayPrice(formatCurrency(price));
         } else {
             display.displayProductNotFound();
         }
@@ -30,7 +38,7 @@ public class Sale {
     public void onTotal() {
         boolean saleInProgress = totalPrice != 0;
         if (saleInProgress) {
-            display.displayTotal(totalPrice);
+            display.displayTotal(formatCurrency(totalPrice));
         } else {
             display.displaySaleNotInProgress();
         }

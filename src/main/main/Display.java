@@ -14,8 +14,8 @@ public class Display {
         this.text = "Product not found";
     }
 
-    public void displayPrice(long price) {
-        this.text = String.format("$%.2f", price / 100.0);
+    public void displayPrice(String priceAsText) {
+        this.text = priceAsText;
     }
 
     public void displayProductNotScanned() {
@@ -26,7 +26,7 @@ public class Display {
         this.text = "No sale in progress.";
     }
 
-    public void displayTotal(long totalPrice) {
-        this.text = "Total: $" + String.format("%.2f", totalPrice / 100.0);
+    public void displayTotal(String totalPrice) {
+        this.text = "Total: " + totalPrice;
     }
 }
