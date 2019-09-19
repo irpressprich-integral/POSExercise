@@ -3,10 +3,12 @@ package test;
 import static junit.framework.TestCase.assertEquals;
 
 import java.util.Collections;
-import javax.security.sasl.Sasl;
+import java.util.HashMap;
+import java.util.Map;
 import main.Catalog;
 import main.Display;
 import main.Sale;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MultipleSaleTest {
@@ -43,7 +45,26 @@ public class MultipleSaleTest {
     }
 
     @Test
+    @Ignore
     public void barcodeEmpty() {
 
+    }
+
+    @Test
+    public void threeItemsFound() {
+        Display display = new Display();
+        Map catalog = new HashMap<String, String>(){{
+            put("12345", "$10.00");
+            put("11111", "$15.00");
+            put("22222", "$20.00");
+        }};
+        Sale sale = new Sale(display, new Catalog(catalog));
+        sale.onBarcode("12345");
+        sale.onBarcode("11111");
+        sale.onBarcode("22222");
+
+        sale.onTotal();
+
+        assertEquals("Total: $45.00", display.showText());
     }
 }

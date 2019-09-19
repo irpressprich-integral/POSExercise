@@ -1,5 +1,7 @@
 package main;
 
+import java.text.DecimalFormat;
+
 public class Display {
 
     private String text;
@@ -24,7 +26,7 @@ public class Display {
         this.text = "No sale in progress.";
     }
 
-    public void displayTotal(){
-        this.text =  "Total: $6.40";
+    public void displayTotal(double totalPrice){
+        this.text =  "Total: $"+ String.format("%.2f", totalPrice);
     }
 }
