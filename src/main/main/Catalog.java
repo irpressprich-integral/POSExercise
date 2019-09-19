@@ -4,13 +4,13 @@ import java.util.Map;
 
 public class Catalog {
 
-    private final Map<String, Double> barcodeByPrice;
+    private final Map<String, Long> barcodeByPrice;
 
-    public Catalog(Map<String, Double> barcodeByPrice) {
+    public Catalog(Map<String, Long> barcodeByPrice) {
         this.barcodeByPrice = barcodeByPrice;
     }
 
-    public Double getPrice(String barcode) {
+    public Long getPrice(String barcode) {
         return barcodeByPrice.get(barcode);
     }
 

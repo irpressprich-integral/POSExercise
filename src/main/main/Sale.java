@@ -4,8 +4,8 @@ public class Sale {
 
     private final Display display;
     private Catalog catalog;
-    private Double price;
-    private double totalPrice;
+    private long price;
+    private long totalPrice;
 
     public Sale(Display display, Catalog catalog) {
         this.display = display;
@@ -28,7 +28,7 @@ public class Sale {
     }
 
     public void onTotal() {
-        boolean saleInProgress = price != null;
+        boolean saleInProgress = totalPrice != 0;
         if (saleInProgress) {
             display.displayTotal(totalPrice);
         } else {

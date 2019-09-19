@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class SingleSaleTest {
 
-    private Map<String, Double> barcodeByPrice;
+    private Map<String, Long> barcodeByPrice;
     private Display display;
     private Sale sale;
     private Catalog catalog;
@@ -21,8 +21,8 @@ public class SingleSaleTest {
     public void setup() {
         display = new Display();
         barcodeByPrice = new HashMap<>() {{
-            put("12345", 12.25);
-            put("23456", 12.65);
+            put("12345", 1225l);
+            put("23456", 1265l);
         }};
         catalog = new Catalog(barcodeByPrice);
         sale = new Sale(display, catalog);

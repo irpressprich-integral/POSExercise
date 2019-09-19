@@ -19,10 +19,10 @@ public class MultipleSaleTest {
     @Before
     public void setUp() throws Exception {
         display = new Display();
-        barcodeByPriceMap = new HashMap<String, Double>() {{
-            put("12345", 10.00);
-            put("11111", 15.00);
-            put("22222", 20.00);
+        barcodeByPriceMap = new HashMap<String, Long>() {{
+            put("12345", 1000l);
+            put("11111", 1500l);
+            put("22222", 2000l);
         }};
     }
 
@@ -36,7 +36,7 @@ public class MultipleSaleTest {
 
     @Test
     public void oneItemFound() {
-        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345", 6.40)));
+        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345", 640l)));
 
         sale.onBarcode("12345");
         sale.onTotal();
@@ -46,7 +46,7 @@ public class MultipleSaleTest {
 
     @Test
     public void oneItemNotFound() {
-        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345", 6.40)));
+        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345", 640l)));
 
         sale.onBarcode("99999");
         sale.onTotal();
