@@ -1,9 +1,7 @@
 package main;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
 
 public class Sale {
 
@@ -19,8 +17,7 @@ public class Sale {
     }
 
     public static String formatCurrency(long priceInCents) {
-        NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
-        return n.format(priceInCents / 100.0);
+        return String.format("$%,.2f", priceInCents / 100.0);
     }
 
     public void onBarcode(String barcode) {
