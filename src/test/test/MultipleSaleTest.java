@@ -8,14 +8,27 @@ import java.util.Map;
 import main.Catalog;
 import main.Display;
 import main.Sale;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 public class MultipleSaleTest {
 
+    private Display display;
+    private Map map;
+
+    @Before
+    public void setUp() throws Exception {
+        display = new Display();
+        map = new HashMap<String, Double>() {{
+            put("12345", 10.00);
+            put("11111", 15.00);
+            put("22222", 20.00);
+        }};
+    }
+
     @Test
     public void zeroItems() {
-        Display display = new Display();
         Sale sale = new Sale(display, null);
 
         sale.onTotal();
@@ -24,8 +37,7 @@ public class MultipleSaleTest {
 
     @Test
     public void oneItemFound() {
-        Display display = new Display();
-        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345","$6.40")));
+        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345", 6.40)));
 
         sale.onBarcode("12345");
         sale.onTotal();
@@ -35,8 +47,7 @@ public class MultipleSaleTest {
 
     @Test
     public void oneItemNotFound() {
-        Display display = new Display();
-        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345","$6.40")));
+        Sale sale = new Sale(display, new Catalog(Collections.singletonMap("12345", 6.40)));
 
         sale.onBarcode("99999");
         sale.onTotal();
@@ -52,13 +63,7 @@ public class MultipleSaleTest {
 
     @Test
     public void threeItemsFound() {
-        Display display = new Display();
-        Map catalog = new HashMap<String, String>(){{
-            put("12345", "$10.00");
-            put("11111", "$15.00");
-            put("22222", "$20.00");
-        }};
-        Sale sale = new Sale(display, new Catalog(catalog));
+        Sale sale = new Sale(display, new Catalog(map));
         sale.onBarcode("12345");
         sale.onBarcode("11111");
         sale.onBarcode("22222");

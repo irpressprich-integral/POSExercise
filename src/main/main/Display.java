@@ -14,8 +14,8 @@ public class Display {
         this.text = "Product not found";
     }
 
-    public void displayPrice(String priceAsText) {
-        this.text = priceAsText;
+    public void displayPrice(double price) {
+        this.text = String.format("$%.2f", price);
     }
 
     public void displayProductNotScanned() {

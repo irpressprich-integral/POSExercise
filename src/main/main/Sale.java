@@ -4,7 +4,7 @@ public class Sale {
 
     private final Display display;
     private Catalog catalog;
-    private String price;
+    private Double price;
     private double totalPrice;
 
     public Sale(Display display, Catalog catalog) {
@@ -20,18 +20,11 @@ public class Sale {
 
         if (catalog.hasProduct(barcode)) {
             price = catalog.getPrice(barcode);
-
-            double doublePrice = convertStringToDouble(price);
-            totalPrice += doublePrice;
+            totalPrice += price;
             display.displayPrice(price);
         } else {
             display.displayProductNotFound();
         }
-    }
-
-    private double convertStringToDouble(String price) {
-
-        return Double.parseDouble(price.substring(1));
     }
 
     public void onTotal() {
