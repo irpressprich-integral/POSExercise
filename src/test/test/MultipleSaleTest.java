@@ -9,18 +9,17 @@ import main.Catalog;
 import main.Display;
 import main.Sale;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class MultipleSaleTest {
 
     private Display display;
-    private Map map;
+    private Map barcodeByPriceMap;
 
     @Before
     public void setUp() throws Exception {
         display = new Display();
-        map = new HashMap<String, Double>() {{
+        barcodeByPriceMap = new HashMap<String, Double>() {{
             put("12345", 10.00);
             put("11111", 15.00);
             put("22222", 20.00);
@@ -56,14 +55,8 @@ public class MultipleSaleTest {
     }
 
     @Test
-    @Ignore
-    public void barcodeEmpty() {
-
-    }
-
-    @Test
     public void threeItemsFound() {
-        Sale sale = new Sale(display, new Catalog(map));
+        Sale sale = new Sale(display, new Catalog(barcodeByPriceMap));
         sale.onBarcode("12345");
         sale.onBarcode("11111");
         sale.onBarcode("22222");
