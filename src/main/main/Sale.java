@@ -1,18 +1,21 @@
 package main;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Locale;
 
 public class Sale {
 
     private final Display display;
     private Catalog catalog;
-    private long price;
     private long totalPrice;
+    private Collection<Long> scannedPricesList;
 
     public Sale(Display display, Catalog catalog) {
         this.display = display;
         this.catalog = catalog;
+        scannedPricesList = new ArrayList<>();
     }
 
     public static String formatCurrency(long priceInCents) {
@@ -27,8 +30,9 @@ public class Sale {
         }
 
         if (catalog.hasProduct(barcode)) {
-            price = catalog.getPrice(barcode);
-            totalPrice += price;
+            long price = catalog.getPrice(barcode);
+            scannedPricesList.add(price);
+
             display.displayPrice(formatCurrency(price));
         } else {
             display.displayProductNotFound();
@@ -36,8 +40,11 @@ public class Sale {
     }
 
     public void onTotal() {
-        boolean saleInProgress = totalPrice != 0;
-        if (saleInProgress) {
+
+        if (scannedPricesList.size() != 0) {
+            for (long price : scannedPricesList) {
+                totalPrice += price;
+            }
             display.displayTotal(formatCurrency(totalPrice));
         } else {
             display.displaySaleNotInProgress();
