@@ -2,6 +2,7 @@ package test;
 
 import static junit.framework.TestCase.assertEquals;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,5 +65,17 @@ public class MultipleSaleTest {
         sale.onTotal();
 
         assertEquals("Total: $45.00", display.showText());
+    }
+
+    @Test
+    public void multipleNotFound() {
+        Sale sale = new Sale(display, new Catalog(Collections.emptyMap()));
+
+        sale.onBarcode("99997");
+        sale.onBarcode("99998");
+        sale.onBarcode("99999");
+        sale.onTotal();
+
+        assertEquals("No sale in progress.", display.showText());
     }
 }
