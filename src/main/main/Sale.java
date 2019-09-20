@@ -37,11 +37,8 @@ public class Sale {
     }
 
     public void onTotal() {
-
         if (scannedPricesList.size() != 0) {
-            for (long price : scannedPricesList) {
-                totalPrice += price;
-            }
+            totalPrice = scannedPricesList.stream().reduce((long) 0, (a, b) -> a + b);
             display.displayTotal(formatCurrency(totalPrice));
         } else {
             display.displaySaleNotInProgress();
